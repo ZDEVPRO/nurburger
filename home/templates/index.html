@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="homepage d-flex flex-column vh-100">
+        <div class="homepage-navbar bg-light shadow mb-auto p-3 bg-primary">
+            <div class="d-flex align-items-center" style="text-align: center; justify-content: center;">
+                <a href="{% url 'index' %}" class="link-dark text-truncate d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-burger" style="font-size: 30px; color: yellow;"></i>
+                    <h1 style="color: white; margin-bottom: 0!important;">NURBURGER</h1>
+                </a>
+            </div>
+        </div>
+
+        <div class="vh-100 my-auto overflow-auto p-1">
+            <div class="p-3 d-flex" style="text-align: center; padding-bottom: 0!important;">
+                <h3>Buyurtma berish uchun maxsulotlardan birini tanlang</h3>
+            </div>
+
+            <div class="d-flex gap-1" style="justify-content: center;">
+                <div class="listing-right" style="width: 100%;">
+                    <div class="bg-white rounded shadow-sm">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                                 aria-labelledby="v-pills-home-tab" tabindex="0">
+
+
+                                <div class="border-bottom p-2">
+                                    <div class="rounded-3 ps-3 shadow-sm d-flex gap-1 align-items-center bg-success bg-gradient justify-content-between">
+                                        <div class="py-3">
+                                            <small class="text-white-50 d-flex align-items-center"
+                                                   style="font-size: 11px;"><i class="bi bi-basket me-1 d-flex"></i>{{ banner.category }}</small>
+                                            <h3 class="fw-bold text-warning mb-0">{{ banner.title }}</h3>
+                                            <p class="text-white mb-2" style="font-size: 13px;">{{ banner.price }}</p>
+                                            <a href="{{ banner.button_link }}" class="btn btn-light text-success fw-bold rounded-3 shadow-sm btn-sm border-0">{{ banner.button_title }}</a>
+                                        </div>
+                                        <img src="{{ banner.image.url }}" alt
+                                             class="img-fluid mt-auto osahan-offer-banner-2">
+                                    </div>
+                                    <p class="text-muted pt-2 mb-0"><span style="font-size: 14px;" class="fw-bold text-dark">Barcha maxsulotlar</span>
+                                    </p>
+                                </div>
+
+
+                                <div class="row border-bottom g-0">
+                                    {% for rs in products %}
+                                        <div class="col-6">
+                                            <div class="card bg-transparent border-0 p-2 h-100">
+                                                <a href="{% url 'product-detail' rs.id %}">
+                                                    <img src="{{ rs.image.url }}" alt="img"
+                                                         style="width: 100%; height: 150px; object-fit: cover; object-position: center;"
+                                                         class="img-fluid d-block mx-auto">
+                                                </a>
+                                                <div class="card-body p-0 mb-3">
+                                                    <small class="text-muted">{{ rs.category }}</small>
+                                                    <p class="card-title fw-bold mb-0"
+                                                       style="font-size: 14px;">{{ rs.title }}</p>
+                                                </div>
+                                                <div class="card-footer bg-transparent border-0 d-flex align-items-end justify-content-between p-0">
+                                                    <div>
+                                                        <p class="fw-bold m-0"
+                                                           style="font-size: 13px;">{{ rs.price }}</p>
+                                                    </div>
+                                                    <a href="{% url 'product-detail' rs.id %}" class="btn btn-outline-success btn-sm border-dark-subtle fw-bold rounded-3 shadow-sm px-3">Ko'rish</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;"></div>
+        </div>
+
+        {% block footer %}{% include 'components/footer.html' %}{% endblock %}
+    </div>
+{% endblock %}

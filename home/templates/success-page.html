@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="d-flex flex-column vh-100">
+        <div class="order-received vh-100 d-flex align-items-center justify-content-center">
+            <a href="track-order.html" class="link-dark">
+                <div class="text-center p-4">
+                    <img src="{% static 'img/order-received.png' %}" alt class="img-fluid w-50 mb-4">
+                    <div>
+                        <h3 class="fw-bold">Muvoffaqiyatli!</h3>
+                        <p style="font-size: 14px;" class="text-muted">Sizning buyurtmangiz muvoffaqiyatli qabul qilindi, sizga aloqaga chiqamiz va buyurtmangizni qisqa vaqt ichida yetkazib beramiz. Raxmat!</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="mt-auto p-4">
+            <a href="{% url 'index' %}" class="btn btn-primary w-100 text-uppercase btn-lg fw-bold">Asosiy sahifaga qaytish</a>
+        </div>
+    </div>
+{% endblock %}
+

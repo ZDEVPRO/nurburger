@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="offcanvas offcanvas-end border-0" tabindex="-1" id="buyurtmaberish" aria-labelledby="addNewCardLabel">
+        <div class="offcanvas-header d-flex align-items-center justify-content-start gap-3 border-bottom">
+            <a href="#" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                    class="bi bi-arrow-left fs-5 text-primary"></i></a>
+            <div>
+                <h6 class="offcanvas-title text-black osahan-mb-1" id="addNewCardLabel">Buyurtma berish</h6>
+                <p class="text-muted m-0">{{ product.title }}</p>
+            </div>
+        </div>
+        <div class="offcanvas-body">
+            <form id="buyurtmaform" method="post"> {% csrf_token %}
+                <h4 style="text-align: center; font-size: 18px;">Buyurtma berish uchun kerakli malumotlarni
+                    kiriting</h4>
+                <br>
+                <div class="row mb-3">
+                    <div class="col-6" style="padding-right: 6px!important;">
+                        <input name="first_name" type="text" class="form-control rounded-3 py-2" placeholder="Ism"
+                               required>
+                    </div>
+                    <div class="col-6" style="padding-left: 6px!important;">
+                        <input name="last_name" type="text" class="form-control rounded-3 py-2" placeholder="Familiya"
+                               required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input name="phone_number" type="number" class="form-control rounded-3 py-2"
+                           placeholder="Telefon raqam" required>
+                </div>
+                <div class="mb-3">
+                    <textarea name="address" class="form-control" placeholder="Manzilingizni yozing"
+                              required></textarea>
+                </div>
+                <div class="mb-3">
+                    <textarea name="comment" style="height: 80px;" class="form-control"
+                              placeholder="Qo'shimcha xabar ( majburiy emas )"></textarea>
+                </div>
+                <button type="submit" id="formbtn" hidden></button>
+            </form>
+        </div>
+        <div class="offcanvas-footer">
+            <a class="btn btn-primary rounded-3 btn-lg w-100" onclick="submitform()">Buyurtmani tasdiqlash</a>
+        </div>
+    </div>
+
+
+    <div class="product-details d-flex flex-column vh-100">
+
+        <div class="homepage-navbar bg-light shadow mb-auto p-3 bg-primary gap-3 d-flex">
+            <a href="{% url 'index' %}" class="text-white"><i class="bi bi-arrow-left fs-5"></i></a>
+            <div style="margin-left: 40px;">
+                <div class="d-flex align-items-center" style="text-align: center; justify-content: center;">
+                    <a href="{% url 'index' %}" class="link-dark text-truncate d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-burger" style="font-size: 30px; color: yellow;"></i>
+                        <h1 style="color: white; margin-bottom: 0!important;">NURBURGER</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vh-100 my-auto overflow-auto">
+            <div class="bg-white shadow-sm p-3 mb-3">
+                <div class="product-slider">
+                    <div class="product-item">
+                        <a data-fancybox="gallery"
+                           data-options='{"buttons": ["zoom", "slideShow", "fullScreen", "close"], "afterLoad": addCustomToolbar}'
+                           href="{{ product.image.url }}" data-standard="{{ product.image.url }}">
+                            <img src="{{ product.image.url }}" alt class="img-fluid mx-auto" loading="lazy"
+                                 style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
+                        </a>
+                    </div>
+                    {% if product.image2 %}
+                        <div class="product-item">
+                            <a data-fancybox="gallery"
+                               data-options='{"buttons": ["zoom", "slideShow", "fullScreen", "close"], "afterLoad": addCustomToolbar}'
+                               href="{{ product.image2.url }}" data-standard="{{ product.image2.url }}">
+                                <img src="{{ product.image2.url }}" alt class="img-fluid mx-auto" loading="lazy"
+                                     style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if product.image3 %}
+                        <div class="product-item">
+                            <a data-fancybox="gallery"
+                               data-options='{"buttons": ["zoom", "slideShow", "fullScreen", "close"], "afterLoad": addCustomToolbar}'
+                               href="{{ product3.image.url }}" data-standard="{{ product.image3.url }}">
+                                <img src="{{ product.image3.url }}" alt class="img-fluid mx-auto" loading="lazy"
+                                     style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if product.image4 %}
+                        <div class="product-item">
+                            <a data-fancybox="gallery"
+                               data-options='{"buttons": ["zoom", "slideShow", "fullScreen", "close"], "afterLoad": addCustomToolbar}'
+                               href="{{ product4.image.url }}" data-standard="{{ product4.image.url }}">
+                                <img src="{{ product.image4.url }}" alt class="img-fluid mx-auto" loading="lazy"
+                                     style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="pt-4">
+                    <p class="text-primary mb-1">{{ product.category }}</p>
+                    <h3 class="fw-bold text-black lh-base">{{ product.title }}</h3>
+                    <h5 class="fw-bold text-black lh-base">Narxi: {{ product.price }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="mt-auto bg-white p-3">
+            <a class="btn btn-success w-100 text-uppercase btn-lg fw-bold" data-bs-toggle="offcanvas"
+               data-bs-target="#buyurtmaberish" aria-controls="buyurtmaberish">Buyurtma berish</a>
+        </div>
+
+        {% block footer %}{% include 'components/footer.html' %}{% endblock %}
+    </div>
+
+
+    <script>
+        var buyurtmaform = document.getElementById('buyurtmaform')
+        var formbtn = document.getElementById('formbtn')
+
+        function submitform() {
+            formbtn.click()
+        }
+    </script>
+{% endblock %}
